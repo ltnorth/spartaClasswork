@@ -1,0 +1,16 @@
+body {
+	font-family: Helvetica;
+	font-size: 14px
+}
+
+p {
+	color: aquamarine;
+}
+
+li.done {
+	color: green;
+}
+
+#ollie {
+	font-weight: bold;
+}
