@@ -1,0 +1,34 @@
+body {
+	width: 100vw;
+	height: 100vh;
+}
+div {
+	float: left;
+	height: 100%;
+	width: 33%;
+}
+div.left {
+	background-color: #000;
+}
+div.middle {
+	background-color: #fce600;
+}
+div.right {
+	background-color: #ff0011;
+}
+@media only screen and (max-width: 600px) {
+	 div.left {
+		height: 33%;
+		width: 100%;
+	}
+	div.middle {
+		height: 33%;
+		width: 100%;
+		background-color: #ff0011;
+	}
+	div.right {
+		height: 33%;
+		width: 100%;
+		background-color: #fce600;
+	}
+}
