@@ -1,82 +1,76 @@
-document.addEventListener("DOMContentLoaded", function() {
-	var playerDisplay = document.getElementById("player1");
+$(function() {
 
-	// Player is dealt a hand of numbers randomly
-		// Make an array of numbers
-	
-	var player = generatePlayerNumbers();
-	showPlayerNumbers(player);
-	yellButtonListener();
-	console.log(player);
+    // Player is dealt a bingo board of numbers randomly
+        // Make an array of numbers
+        // Generate a random number
+        // Slice a number out of the array at the random number position
+    var player = generatePlayerNumbers();
+    showPlayerNumbers(player);
+    yellButtonListener();
+    console.log(player);
+    
+    function selectNumber(numbers) {
+        var randomNumber = Math.floor(Math.random()*numbers.length);
+        var number = numbers.splice(randomNumber, 1)[0];
+        return number;
+    }
 
-	// Generate a random number
-	// Splice a number out of the array at the random number position
+    function generatePlayerNumbers() {
+        var numbers = [1,2,3,4,5,6,7,8,9,10];
+        var player = [];
+        for (var i = 0; i < 3; i++) {
+            var selectedNumber = selectNumber(numbers); 
+            player.push(selectedNumber);
+        }
+        return player;
+    }
 
-	function selectNumber(numbers) {
-		var randomNumber = Math.floor(Math.random()*numbers.length);
-		var number = numbers.splice(randomNumber, 1)[0];
-		return number;
-	}
+    function showPlayerNumbers(playerNumbers) {
+        $(playerNumbers).each(function(index, playerNumber) {
+            makeBall(playerNumber, $("#player1"));
+        });
+    }
 
-	function generatePlayerNumbers() {
-		var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-		var player = [];
+    function makeBall(number, display) {
+        var ball = $("<span>"+number+"</span>").addClass("ball");
+        display.append(ball);
+    }
 
-		for(var i = 0; i < 3; i++) {
-			var selectedNumber = selectNumber(numbers);
-			player.push(selectedNumber);
-		}
-		return player;
-	}
+    function yellButtonListener() {
+        var yellNumbers = [1,2,3,4,5,6,7,8,9,10];
+        $("#yell").click(function() {
+            var selectedNumber = selectNumber(yellNumbers);
+            makeBall(selectedNumber, $("#yelledNumbers"));
+            compareBalls(selectedNumber, $("#player1"));
+        });
+    }
 
-	// Put bingo card on the page
-		// innerHTML
+    function compareBalls(selectedNumber, display) {
+        var index = player.indexOf(selectedNumber);
+        if (index !== -1) {
+            var child = display.children()[index];
+            $(child).remove();
+            player.splice(index, 1);
+        }
+    }
 
-	function showPlayerNumbers(playerNumbers) {
-		for(var i = 0; i < playerNumbers.length; i++) {
-			makeBall(playerNumbers[i], playerDisplay);
-		}
-	}
+    function winCheck(player) {
+    	if(player.length === 1) {
+    		
+    	}
+    }
+    // Put bingo board numbers on the page
+        // innerHTML
 
-	function makeBall(number, display) {
-		var ball = document.createElement("span");
-		ball.className = "ball";
-		ball.innerHTML = number;
-		display.appendChild(ball);
-	}
-		
+    // On click, yelled out numbers are yelled out
+        // Click event
+        // Array of starting numbers randomly selected
 
-	
-	// Yelled out numbers are yelled out on click
-		// Click event
-		// Array of starting numbers randomly selected
-		// Put yelled out numbers on page
+    // Put yelled out numbers on the page
 
-	function yellButtonListener() {
-		var yell = document.getElementById("yell");
-		var yelledNumbersDisplay = document.getElementById("yelledNumbers");
-		var yellNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-		yell.addEventListener("click", function() {
-			var selectedNumber = selectNumber(yellNumbers);
-			makeBall(selectedNumber, yelledNumbersDisplay);
-			compareBalls(selectedNumber, playerDisplay);
-		});
-	}
-	
+    // IF yelled out number is same as player number, remove number from player
 
-	// If yelled out number is same as player number, remove number from player
+    // IF player has no numbers, BOINGO!
 
-	function compareBalls(selectedNumber, display) {
-		var index = player.indexOf(selectedNumber);
-		if(index !== -1) {
-			display.removeChild(display.children[index]);
-			player.splice(index, 1);
-		}
-	}
-
-	// If player has no numbers, BOINGO!
-
-	// Add multiple players
-
-
+    // Add multiple players
 });

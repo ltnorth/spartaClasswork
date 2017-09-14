@@ -1,9 +1,37 @@
+body {
+	width: 100vw;
+	height: 100vh;
+}
+* {
+	margin: 30px auto;
+	text-align: center;
+	font-family: "Helvetica";
+}
+
 .ball {
-	height: 50px;
-	width: 50px;
+	height: 80px;
+	width: 80px;
 	display: inline-block;
 	text-align: center;
 	line-height: 50px;
 	border: 2px solid black;
 	border-radius: 100%;
+	margin: 0 20px;
+	line-height: 80px;
+	font-size: 30px;
+}
+#yell {
+	height: 50px;
+	width: 80px;
+	margin-right: 0;
+	font-size: 30px;
+}
+.p1 {
+	background-color: #0075C4;
+}
+.yelled {
+	background-color: #EFA00B;
+}
+.p2 {
+	background-color: #008148;
 }
