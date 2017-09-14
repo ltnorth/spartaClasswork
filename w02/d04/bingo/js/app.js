@@ -1,14 +1,23 @@
 $(function() {
 
-    // Player is dealt a bingo board of numbers randomly
-        // Make an array of numbers
-        // Generate a random number
-        // Slice a number out of the array at the random number position
-    var player = generatePlayerNumbers();
-    showPlayerNumbers(player);
-    yellButtonListener();
-    console.log(player);
+
+	// function run() {
+		$("#p1win").hide();
+		$("#p2win").hide();
+	    var player1 = generatePlayerNumbers();
+	    var player2 = generatePlayerNumbers();
+	    showPlayerNumbers(player1, $("#player1"));
+	    showPlayerNumbers(player2, $("#player2"));
+	    yellButtonListener();
+	    // reset();
+	// }
     
+	// function reset() {
+	// 	$("<button>Reset</button>").addClass("reset").click(function() {
+	// 		run();
+	// 	});
+	// }
+
     function selectNumber(numbers) {
         var randomNumber = Math.floor(Math.random()*numbers.length);
         var number = numbers.splice(randomNumber, 1)[0];
@@ -25,9 +34,9 @@ $(function() {
         return player;
     }
 
-    function showPlayerNumbers(playerNumbers) {
+    function showPlayerNumbers(playerNumbers, pDisplay) {
         $(playerNumbers).each(function(index, playerNumber) {
-            makeBall(playerNumber, $("#player1"));
+            makeBall(playerNumber, pDisplay);
         });
     }
 
@@ -41,36 +50,37 @@ $(function() {
         $("#yell").click(function() {
             var selectedNumber = selectNumber(yellNumbers);
             makeBall(selectedNumber, $("#yelledNumbers"));
-            compareBalls(selectedNumber, $("#player1"));
+            compareBalls(selectedNumber, $("#player1"), player1);
+            compareBalls(selectedNumber, $("#player2"), player2);
+            winCheck();
         });
     }
 
-    function compareBalls(selectedNumber, display) {
+    function compareBalls(selectedNumber, display, player) {
         var index = player.indexOf(selectedNumber);
         if (index !== -1) {
-            var child = display.children()[index];
-            $(child).remove();
-            player.splice(index, 1);
+           removeBall(index, display, player);
         }
     }
 
-    function winCheck(player) {
-    	if(player.length === 1) {
-    		
+    function winCheck() {
+    	if(player1.length === 0) {
+    		$("#p1win").show();
+    		$("#yell").hide();
+    		$("h2").hide();
+    	} else if(player2.length === 0) {
+    		$("#p2win").show();
+    		$("#yell").hide();
+    		$("h2").hide();
     	}
     }
-    // Put bingo board numbers on the page
-        // innerHTML
 
-    // On click, yelled out numbers are yelled out
-        // Click event
-        // Array of starting numbers randomly selected
+    function removeBall(index, display, player) {
+    	var child = display.children()[index];
+        $(child).remove();
+        player.splice(index, 1);
+    }
 
-    // Put yelled out numbers on the page
+    // run();
 
-    // IF yelled out number is same as player number, remove number from player
-
-    // IF player has no numbers, BOINGO!
-
-    // Add multiple players
 });

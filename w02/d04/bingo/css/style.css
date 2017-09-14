@@ -1,11 +1,15 @@
 body {
 	width: 100vw;
 	height: 100vh;
+	background-color: #008148;
 }
 * {
 	margin: 30px auto;
 	text-align: center;
 	font-family: "Helvetica";
+}
+h2 {
+	color: white;
 }
 
 .ball {
@@ -19,19 +23,15 @@ body {
 	margin: 0 20px;
 	line-height: 80px;
 	font-size: 30px;
+	background-color: #EFA00B;
 }
 #yell {
 	height: 50px;
 	width: 80px;
 	margin-right: 0;
 	font-size: 30px;
-}
-.p1 {
 	background-color: #0075C4;
 }
-.yelled {
-	background-color: #EFA00B;
-}
-.p2 {
-	background-color: #008148;
+.winner {
+	color: white;
 }
