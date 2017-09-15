@@ -1,22 +1,29 @@
 $(function() {
+var player1;
+var player2;
+var yellNumbers;
 
-
-	// function run() {
+	function run() {
 		$("#p1win").hide();
 		$("#p2win").hide();
-	    var player1 = generatePlayerNumbers();
-	    var player2 = generatePlayerNumbers();
+        $("#reset").hide();
+	    player1 = generatePlayerNumbers();
+	    player2 = generatePlayerNumbers();
 	    showPlayerNumbers(player1, $("#player1"));
 	    showPlayerNumbers(player2, $("#player2"));
 	    yellButtonListener();
-	    // reset();
-	// }
+	}
     
-	// function reset() {
-	// 	$("<button>Reset</button>").addClass("reset").click(function() {
-	// 		run();
-	// 	});
-	// }
+	function reset() {
+        $("#reset").show();
+		$("#reset").click(function() {
+            // clear($("#player1"), player1);
+            // clear($("#player2"), player2);
+            // clear($("#yell"), yellNumbers);
+            clear();
+			run();
+		});
+	}
 
     function selectNumber(numbers) {
         var randomNumber = Math.floor(Math.random()*numbers.length);
@@ -46,7 +53,7 @@ $(function() {
     }
 
     function yellButtonListener() {
-        var yellNumbers = [1,2,3,4,5,6,7,8,9,10];
+        yellNumbers = [1,2,3,4,5,6,7,8,9,10];
         $("#yell").click(function() {
             var selectedNumber = selectNumber(yellNumbers);
             makeBall(selectedNumber, $("#yelledNumbers"));
@@ -64,15 +71,17 @@ $(function() {
     }
 
     function winCheck() {
+        if(player1.length === 0 || player2.length === 0) {
+            $("#yell").hide();
+            $("h2").hide();
+            reset();
+        }
     	if(player1.length === 0) {
     		$("#p1win").show();
-    		$("#yell").hide();
-    		$("h2").hide();
     	} else if(player2.length === 0) {
     		$("#p2win").show();
-    		$("#yell").hide();
-    		$("h2").hide();
     	}
+        
     }
 
     function removeBall(index, display, player) {
@@ -81,6 +90,16 @@ $(function() {
         player.splice(index, 1);
     }
 
-    // run();
+    function clear() {
+        $("#player1").empty();
+        $("#player2").empty();
+        $("#yell").empty();
+        player1 = [];
+        player2 = [];
+        yellNumbers = [];
+    }
+
+
+    run();
 
 });
