@@ -46,16 +46,20 @@ def card_value(string)
 	elsif(value == "Jack" || value == "Queen" || value == "King")
 		10
 	else
-		value
+		value.to_i
 	end
 end
 
-def check_bust(array)
+def add_card_values(array)
 	count = 0
 	array.select do |card|
 		count += card_value(card)
 	end
-	if(count > 21)
+	count
+end
+
+def check_bust(total)
+	if(total > 21)
 		true
 	else
 		false
@@ -70,9 +74,16 @@ player_hand = []
 comp_hand = []
 
 deck = build_deck
-
 deal_cards(player_hand, comp_hand, deck)
-
+puts "Your hand:\n #{player_hand}"
+puts "My hand: \n #{comp_hand}"
+player_total = add_card_values(player_hand)
+comp_total = add_card_values(comp_hand)
+if(player_total > comp_total)
+	puts "You have won with a total of #{player_total} to my #{comp_total}"
+else
+	puts "I have won with a total of #{comp_total} to your #{player_total}"
+end
 
 
 
