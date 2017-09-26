@@ -34,12 +34,26 @@ def deal_cards(array1, array2, deck)
 	end
 end
 
-def twist(array, deck)
+def hit_me(array, deck)
 	array.push(deck.shift)
 end
 
 # Bust check
+def card_value(string)
+	string.split(' ')[0].to_i
+end
 
+def check_bust(array)
+	count = 0
+	array.select do |card|
+		count += card_value(card)
+	end
+	if(count > 21)
+		true
+	else
+		false
+	end
+end
 
 # Win check
 
@@ -47,7 +61,9 @@ end
 # Running commands
 player_hand = []
 comp_hand = []
+
 deck = build_deck
+
 deal_cards(player_hand, comp_hand, deck)
 
 
