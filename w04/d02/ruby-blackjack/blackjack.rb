@@ -17,14 +17,13 @@ def build_deck
 		deck.push("#{picture} diamond")
 		# count+=4
 	end
-	deck.shuffle
 	# puts count
 end
 
-# Shuffle deck
-def shuffle(deck)
-	deck.shuffle
-end
+# # Shuffle deck
+# def shuffle(deck)
+# 	deck.shuffle
+# end
 
 # Deal cards
 def deal_cards(array1, array2, deck)
@@ -34,16 +33,13 @@ def deal_cards(array1, array2, deck)
 	end
 end
 
-def hit_me(array, deck)
-	array.push(deck.shift)
-end
 
 # Bust check
 def card_value(string)
 	value = string.split(' ')[0]
 	if(value == "A")
 		11
-	elsif(value == "Jack" || value == "Queen" || value == "King")
+	elsif(["Jack", "Queen", "King"].include? value)
 		10
 	else
 		value.to_i
@@ -66,13 +62,39 @@ def check_bust(total)
 	end
 end
 
+# Playing methods
+def hit_me(array, deck)
+	array.push(deck.shift)
+end
+
+def player_turn(array, deck)
+	puts "You have: #{array}; and a total of #{add_card_values(array)}."
+	puts "Do you want to (s)tick or (t)wist?"
+	if(gets.chomp == "t")
+		hit_me(array, deck)
+		true
+	else
+		false
+	end
+end
+
+def comp_turn(array, deck)
+	if(add_card_values(array) < 16)
+		hit_me(array, deck)
+		true
+	else
+		false
+	end
+end
+
+
 # Quit check
 def quit
 	puts "Do you want to play again? (Y) or (N)"
 	if(gets.chomp.upcase == "N")
-		true
-	else
 		false
+	else
+		true
 	end
 end
 
@@ -81,24 +103,38 @@ end
 
 def run
 	check = true
+	puts "*** Welcome to blackjack ***"
+	deck = build_deck
 	while(check)
 		player_hand = []
 		comp_hand = []
-		deck = build_deck
+		deck = deck.shuffle!
 		deal_cards(player_hand, comp_hand, deck)
-		sleep 1
-		puts "Your hand:\n #{player_hand}"
-		sleep 1.5
-		puts "My hand: \n #{comp_hand}"
-		player_total = add_card_values(player_hand)
-		comp_total = add_card_values(comp_hand)
-		sleep 2
-		if(player_total > comp_total)
-			puts "You have won with a total of #{player_total} to my #{comp_total}"
-		else
-			puts "I have won with a total of #{comp_total} to your #{player_total}"
+		q = true
+		while q
+			q = player_turn(player_hand, deck)
+			if(check_bust(add_card_values(player_hand)))
+				puts "You have bust!"
+				q = false
+				ploss = true
+			end
 		end
-		sleep 2
+
+		if(!ploss)
+			while !q
+				q = comp_turn(comp_hand, deck)
+				if(check_bust(add_card_values(comp_hand)))
+					puts "I have bust!"
+					q = true
+					closs = true
+				end
+			end
+		end
+		if(add_card_values(player_hand) > add_card_values(comp_hand))
+			puts "You have won with #{add_card_values(player_hand)} to my #{add_card_values(comp_hand)}"
+		else
+			puts "I have won with #{add_card_values(comp_hand)} to my #{add_card_values(player_hand)}"
+		end
 		check = !quit()
 	end
 end
