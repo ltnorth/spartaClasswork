@@ -66,29 +66,46 @@ def check_bust(total)
 	end
 end
 
-# Win check
-
+# Quit check
+def quit
+	puts "Do you want to play again? (Y) or (N)"
+	if(gets.chomp.upcase == "N")
+		true
+	else
+		false
+	end
+end
 
 # Running commands
-player_hand = []
-comp_hand = []
 
-deck = build_deck
-deal_cards(player_hand, comp_hand, deck)
-puts "Your hand:\n #{player_hand}"
-puts "My hand: \n #{comp_hand}"
-player_total = add_card_values(player_hand)
-comp_total = add_card_values(comp_hand)
-if(player_total > comp_total)
-	puts "You have won with a total of #{player_total} to my #{comp_total}"
-else
-	puts "I have won with a total of #{comp_total} to your #{player_total}"
+
+def run
+	check = true
+	while(check)
+		player_hand = []
+		comp_hand = []
+		deck = build_deck
+		deal_cards(player_hand, comp_hand, deck)
+		sleep 1
+		puts "Your hand:\n #{player_hand}"
+		sleep 1.5
+		puts "My hand: \n #{comp_hand}"
+		player_total = add_card_values(player_hand)
+		comp_total = add_card_values(comp_hand)
+		sleep 2
+		if(player_total > comp_total)
+			puts "You have won with a total of #{player_total} to my #{comp_total}"
+		else
+			puts "I have won with a total of #{comp_total} to your #{player_total}"
+		end
+		sleep 2
+		check = !quit()
+	end
 end
 
 
 
-
-
+run
 
 
 
