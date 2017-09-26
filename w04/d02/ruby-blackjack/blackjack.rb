@@ -40,7 +40,14 @@ end
 
 # Bust check
 def card_value(string)
-	string.split(' ')[0].to_i
+	value = string.split(' ')[0]
+	if(value == "A")
+		11
+	elsif(value == "Jack" || value == "Queen" || value == "King")
+		10
+	else
+		value
+	end
 end
 
 def check_bust(array)
