@@ -34,6 +34,10 @@ def deal_cards(array1, array2, deck)
 	end
 end
 
+def twist(array, deck)
+	array.push(deck.shift)
+end
+
 # Bust check
 
 
