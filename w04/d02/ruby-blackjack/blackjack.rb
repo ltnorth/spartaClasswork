@@ -21,17 +21,45 @@ def build_deck
 	# puts count
 end
 
+# Shuffle deck
 def shuffle(deck)
 	deck.shuffle
 end
-deck = build_deck
-# Shuffle deck
-
 
 # Deal cards
-
+def deal_cards(array1, array2, deck)
+	2.times do
+		array1.push(deck.shift)
+		array2.push(deck.shift)
+	end
+end
 
 # Bust check
 
 
 # Win check
+
+
+# Running commands
+player_hand = []
+comp_hand = []
+deck = build_deck
+deal_cards(player_hand, comp_hand, deck)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
