@@ -17,16 +17,14 @@ def build_deck
 		deck.push("#{picture} diamond")
 		# count+=4
 	end
-	puts deck.shuffle
+	deck.shuffle
 	# puts count
 end
 
 def shuffle(deck)
 	deck.shuffle
 end
-
-# deck = build_deck
-# deck = 
+deck = build_deck
 # Shuffle deck
 
 
