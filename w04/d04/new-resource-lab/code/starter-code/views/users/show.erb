@@ -1,0 +1,25 @@
+<table>
+	<thead>
+		<tr>
+			<th colspan="2" class="name_title"><%= @user[:first_name] %> <%= @user[:last_name] %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Email:</th>
+			<td><%= @user[:email] %></td>
+		</tr>
+		<tr>
+			<th>Age:</th>
+			<td><%= @user[:age] %></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="edit_delete">
+	<a href="/users/<%= @user[:id] %>/edit">edit</a>
+	<form action="/users/<%= @user[:id] %>" method="POST">
+	  <input type="hidden" name="_method" value="DELETE">
+	  <input type="submit" value="Delete">
+	</form> 
+</div>
