@@ -69,27 +69,11 @@ class MoviesApiController < Sinatra::Base
 
 	# DELETE
 	delete "/api/movies/:id" do
-
-		# given_id = params[:id].to_i
-		# $movies.each do |movie|
-		# 	if(movie[:id].to_i == given_id)
-		# 		$movies.delete_at($movies.index(movie))
-		# 	end
-		# end
-
-		# id = params[:id].to_i
-		# if($movies[id] != nil)
-		# 	index_of_movie_at_id = $movies.index($movies[id])
-		# 	$movies.delete_at(index_of_movie_at_id)
-		# 	json $movies
-		# else
-		# 	"Invalid movie id"
-		# end
-
-		# id = params[:id].to_i
-		# $movies.delete_at(id)
-		# json $movies
-
+		given_id = params[:id].to_i
+		$movies.select! do |movie|
+			movie[:id] != given_id
+		end
+		json $movies
 	end
 
 end
