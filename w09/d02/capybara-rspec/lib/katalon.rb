@@ -57,6 +57,7 @@ class Katalon
   def choose_healthcare_program
     @session.choose 'radio_program_medicaid'
   end
+  
   def check_healthcare_program
     @session.find('#radio_program_medicaid').checked?
   end
